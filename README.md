@@ -1,7 +1,8 @@
 # Turnierverwaltung - Authentification
 
-![CI](https://github.com/H3nSte1n/people_managment_system/workflows/CI/badge.svg) ![coverage](https://github.com/H3nSte1n/people_managment_system/blob/main/.github/badges/jacoco.svg)
-
+![CI][ci]
+![Code-Style][code-style]
+![Coverage][coverage]
 
 ## setup
 
@@ -19,9 +20,13 @@
 
 ### ENV
 - Removing the dist wording from the .env(.test).dist filename\
-***.env(.test).dist -> .env(.test)***
+  ***.env(.test).dist -> .env(.test)***
 
 
 - set following env variables
 
+
+[ci]: https://github.com/H3nSte1n/people_managment_system/workflows/CI/badge.svg?style=flat
+[code-style]: https://github.com/H3nSte1n/people_managment_system/workflows/Code-Style/badge.svg?style=flat
+[coverage]: https://github.com/H3nSte1n/people_managment_system/blob/main/.github/badges/jacoco.svg
 
