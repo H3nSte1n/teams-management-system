@@ -1,0 +1,21 @@
+definitions:
+  Persons:
+    type: array
+    items:
+      type: object
+      $ref: '#/definitions/Person'
+  Person:
+    description: Person
+    required:
+      - username,
+      - password,
+      - name
+    properties:
+      firstname:
+        type: string
+      lastname:
+        type: string
+      birthdate:
+        type: integer
+
+
