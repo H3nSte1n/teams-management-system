@@ -1,4 +1,4 @@
-# Turnierverwaltung - Authentification
+# Turnierverwaltung - People Management System
 
 ![CI][ci]
 ![Code-Style][code-style]
