@@ -9,7 +9,7 @@ import statuspages.AuthenticationException
 
 class RoleBasedAuthorization() {
 
-    class Configuration {}
+    class Configuration
 
     fun interceptPipeline(pipeline: ApplicationCallPipeline) {
         pipeline.insertPhaseAfter(ApplicationCallPipeline.Features, Authentication.ChallengePhase)
@@ -20,10 +20,9 @@ class RoleBasedAuthorization() {
                 url = "https://turnierverwaltung-auth.herokuapp.com/api/v1/auth",
                 headers = mapOf("Authorization" to call.request.header("Authorization")),
             )
-            if(status.statusCode == HttpStatusCode.Unauthorized.value) throw AuthenticationException()
+            if (status.statusCode == HttpStatusCode.Unauthorized.value) throw AuthenticationException()
         }
     }
-
 
     companion object Feature : ApplicationFeature<ApplicationCallPipeline, Configuration, RoleBasedAuthorization> {
         override val key = AttributeKey<RoleBasedAuthorization>("RoleBasedAuthorization")
@@ -31,12 +30,11 @@ class RoleBasedAuthorization() {
         val AuthorizationPhase = PipelinePhase("Authorization")
 
         override fun install(
-            pipeline: ApplicationCallPipeline, configure: Configuration.() -> Unit
+            pipeline: ApplicationCallPipeline,
+            configure: Configuration.() -> Unit
         ): RoleBasedAuthorization {
             return RoleBasedAuthorization()
         }
-
-
     }
 }
 
@@ -44,7 +42,7 @@ class AuthorizedRouteSelector(private val description: String) :
     RouteSelector(RouteSelectorEvaluation.qualityConstant) {
     override fun evaluate(context: RoutingResolveContext, segmentIndex: Int) = RouteSelectorEvaluation.Constant
 
-    override fun toString(): String = "(authorize ${description})"
+    override fun toString(): String = "(authorize $description)"
 }
 
 fun Route.withRole(build: Route.() -> Unit) = authorizedRoute(build = build)
