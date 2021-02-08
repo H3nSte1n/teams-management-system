@@ -17,6 +17,13 @@ definitions:
         type: string
       date:
         type: integer
+        example: "2019-07-15 00:00 AM UTC"
+  Person--extended:
+    type: object
+    properties:
+      id:
+        type: Int
+        example: 1
   RemovedPersons:
     description: Count of removed Persons
     required:

@@ -31,8 +31,9 @@ paths:
           description: Returns the selected Person.
           content:
             application/json:
-              schema:
-                $ref: './components/person.yml#definitions/Persons'
+              allOf:
+                - $ref: './components/person.yml#definitions/Person'
+                - $ref: './components/person.yml#definitions/Person--extended'
         400:
           $ref: './components/errors.yml#/components/responses/BadRequest'
         401:
@@ -55,7 +56,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './components/person.yml#definitions/Person'
+                allOf:
+                  - $ref: './components/person.yml#definitions/Person'
+                  - $ref: './components/person.yml#definitions/Person--extended'
         400:
           $ref: './components/errors.yml#/components/responses/BadRequest'
         401:
