@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: 'People Management System API'
-  description: 'API for an people_management_system. It includes login and registration.'
+  description: 'API for a people_management_system.'
   contact:
     name: Henry Steinhauer
     email: Henrysteinhauer@t-online.de
@@ -10,7 +10,7 @@ info:
 
 components:
   securitySchemes:
-    bearerAuth:            # arbitrary name for the security scheme
+    bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
