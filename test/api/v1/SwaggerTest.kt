@@ -1,5 +1,6 @@
 package api.v1
 
+import RoleBasedAuthorization
 import api.api
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.papsign.ktor.openapigen.OpenAPIGen
@@ -45,6 +46,7 @@ class SwaggerTest {
     private fun initApplication(tests: (call: TestApplicationCall) -> Unit, path: String) {
         withTestApplication {
 
+            application.install(RoleBasedAuthorization)
             application.install(OpenAPIGen) {
                 serveSwaggerUi = true
                 swaggerUiPath = "/swagger-ui"
