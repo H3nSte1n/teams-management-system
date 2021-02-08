@@ -22,10 +22,7 @@ class RoleBasedAuthorization() {
                 headers = mapOf("Authorization" to call.request.header("Authorization")),
                 params = mapOf("test" to "get")
             )
-            println(status)
             if(status.statusCode == HttpStatusCode.Unauthorized.value) throw AuthenticationException()
-            println(status.statusCode)
-            println(HttpStatusCode.Unauthorized.value)
         }
     }
 
