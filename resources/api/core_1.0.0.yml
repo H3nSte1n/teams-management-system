@@ -8,6 +8,16 @@ info:
     url: https://github.com/H3nSte1n
   version: '1.0.0'
 
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
+
 paths:
   /api/v1/persons:
     get:
