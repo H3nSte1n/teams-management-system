@@ -33,8 +33,9 @@ fun Application.main() {
         method(HttpMethod.Put)
         method(HttpMethod.Delete)
         method(HttpMethod.Patch)
+        method(HttpMethod.Post)
         //  header(HttpHeaders.Authorization)
-        allowCredentials = false
+        allowCredentials = true
         anyHost()
     }
 
