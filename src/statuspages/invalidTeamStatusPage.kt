@@ -4,8 +4,8 @@ import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
 
-fun StatusPages.Configuration.invalidPersonStatusPage() {
-    exception<InvalidPersonException> { cause ->
+fun StatusPages.Configuration.invalidTeamStatusPage() {
+    exception<InvalidTeamException> { cause ->
         call.respondText(
             cause.message,
             ContentType.Text.Plain,
@@ -14,4 +14,4 @@ fun StatusPages.Configuration.invalidPersonStatusPage() {
     }
 }
 
-data class InvalidPersonException(override val message: String = "Invalid User Exception") : Exception()
+data class InvalidTeamException(override val message: String = "Invalid Team Exception") : Exception()

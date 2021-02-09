@@ -1,0 +1,34 @@
+definitions:
+  Teams:
+    type: array
+    items:
+      type: object
+      $ref: '#/definitions/Team'
+  Team:
+    description: Team
+    required:
+      - name,
+      - personList,
+    properties:
+      name:
+        type: string
+      personList:
+        type: array
+        items:
+          type: integer
+  Team--extended:
+    type: object
+    properties:
+      id:
+        type: Int
+        example: 1
+  RemovedTeams:
+    description: Count of removed Teams
+    required:
+      - count
+    properties:
+      count:
+        type: integer
+
+
+

@@ -23,7 +23,7 @@ apply from: "gradle/jacoco.gradle"
 apply from: "gradle/test.gradle"
 
 description "A simple authentication micro-service"
-group "com.people_managment_system"
+group "com.teams_management_system"
 version "1.0.0"
 mainClassName = "io.ktor.server.netty.EngineMain"
 

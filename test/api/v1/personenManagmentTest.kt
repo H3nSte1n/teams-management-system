@@ -1,7 +1,7 @@
 /*import api.api
 import com.fasterxml.jackson.databind.SerializationFeature
-import controller.PersonController
-import data.Person
+import controller.TeamController
+import data.Team
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
@@ -18,41 +18,41 @@ import org.junit.jupiter.api.Test
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
 
-class personenManagmentTest {
+class TeamenManagmentTest {
     val body =
         """{"firstname":"Henry","lastname":"foobar","date":"2021-02-05 16:34:23.23"}"""
-    lateinit var person: data.Person
+    lateinit var Team: data.Team
 
     @BeforeTest
     fun prepare() {
-        person = factories.Person.instance
+        Team = factories.Team.instance
         unmockkAll()
     }
 
     @Nested
-    inner class api_v1_persons {
-        val path = "/api/v1/persons"
+    inner class api_v1_Teams {
+        val path = "/api/v1/Teams"
 
         @BeforeTest
         fun prepare() {
-            mockkObject(PersonController)
-            every { PersonController.addPerson(any()) } returns person
+            mockkObject(TeamController)
+            every { TeamController.addTeam(any()) } returns Team
         }
 
         @Test
-        fun should_call_PersonController_addPerson() {
+        fun should_call_TeamController_addTeam() {
             fun tests(call: TestApplicationCall) {
                 verify {
-                    PersonController.addPerson(any())
+                    TeamController.addTeam(any())
                 }
             }
             initApplication(::tests, path, body, HttpMethod.Post)
         }
 
         @Test
-        fun should_respond_Person() {
+        fun should_respond_Team() {
             fun tests(call: TestApplicationCall) {
-                assertEquals(person, call.response.content)
+                assertEquals(Team, call.response.content)
             }
             initApplication(::tests, path, body, HttpMethod.Post)
         }
@@ -68,26 +68,26 @@ class personenManagmentTest {
 
     @Nested
     inner class api_v1_sign_up {
-        val path = "/api/v1/persons/{id}"
+        val path = "/api/v1/Teams/{id}"
 
         @BeforeTest
         fun prepare() {
-            mockkObject(PersonController)
-            every { PersonController.removePerson(any()) } returns 1
+            mockkObject(TeamController)
+            every { TeamController.removeTeam(any()) } returns 1
         }
 
         @Test
-        fun should_call_RegisterController_removePerson() {
+        fun should_call_RegisterController_removeTeam() {
             fun tests(call: TestApplicationCall) {
                 verify {
-                    PersonController.removePerson(any())
+                    TeamController.removeTeam(any())
                 }
             }
             initApplication(::tests, path, body, HttpMethod.Delete)
         }
 
         @Test
-        fun should_respond_count_of_deleted_persons() {
+        fun should_respond_count_of_deleted_Teams() {
             fun tests(call: TestApplicationCall) {
                 assertEquals(1, call.response.content)
             }

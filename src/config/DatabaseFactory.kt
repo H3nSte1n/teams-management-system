@@ -6,7 +6,7 @@ import io.github.cdimascio.dotenv.Dotenv
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
-import schemas.Persons
+import schemas.Teams
 import java.util.*
 
 object DatabaseFactory {
@@ -15,7 +15,7 @@ object DatabaseFactory {
         database = Database.Companion.connect(config(dotenv))
 
         transaction {
-            SchemaUtils.create(Persons)
+            SchemaUtils.create(Teams)
         }
     }
 

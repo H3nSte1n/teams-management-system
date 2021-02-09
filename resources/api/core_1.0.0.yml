@@ -19,16 +19,16 @@ security:
   - bearerAuth: []
 
 paths:
-  /api/v1/persons:
+  /api/v1/teams:
     get:
       tags:
-        - Persons Administration
-      summary: Gets all Personens
-      description: Get a list of all Persons. The list supports pagination.
+        - Teams Administration
+      summary: Gets all Teamens
+      description: Get a list of all Teams. The list supports pagination.
       parameters:
         - in: query
           name: pageSize
-          description: Persons per Page
+          description: Teams per Page
           schema:
             type: integer
         - name: pageNumber
@@ -38,12 +38,12 @@ paths:
             type: integer
       responses:
         '200':
-          description: Returns the selected Person.
+          description: Returns the selected Team.
           content:
             application/json:
               allOf:
-                - $ref: './components/person.yml#definitions/Person'
-                - $ref: './components/person.yml#definitions/Person--extended'
+                - $ref: './components/teams.yml#definitions/Team'
+                - $ref: './components/teams.yml#definitions/Team--extended'
         400:
           $ref: './components/errors.yml#/components/responses/BadRequest'
         401:
@@ -52,48 +52,48 @@ paths:
           $ref: './components/errors.yml#/components/responses/InternalServerError'
     post:
       tags:
-        - Persons Administration
-      summary: Creates a Person
-      description: Adds a new person to the person list.
+        - Teams Administration
+      summary: Creates a Team
+      description: Adds a new Team to the Team list.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: './components/person.yml#definitions/Person'
+              $ref: './components/teams.yml#definitions/Team'
       responses:
         '201':
-          description: Create new Person
+          description: Create new Team
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: './components/person.yml#definitions/Person'
-                  - $ref: './components/person.yml#definitions/Person--extended'
+                  - $ref: './components/teams.yml#definitions/Team'
+                  - $ref: './components/teams.yml#definitions/Team--extended'
         400:
           $ref: './components/errors.yml#/components/responses/BadRequest'
         401:
           $ref: './components/errors.yml#/components/responses/Unauthorized'
         500:
           $ref: './components/errors.yml#/components/responses/InternalServerError'
-  /api/v1/persons/{person_id}:
+  /api/v1/teams/{team_id}:
     get:
       tags:
-        - Persons Administration
-      summary: Gets a selected Person
-      description: Returns a single person identified by id.
+        - Teams Administration
+      summary: Gets a selected Team
+      description: Returns a single Team identified by id.
       parameters:
-        - name: person_id
+        - name: team_id
           in: path
           required: true
-          description: Person's id
+          description: Team's id
           type: number
       responses:
         '200':
-          description: Returns the selected Person.
+          description: Returns the selected Team.
           content:
             application/json:
               schema:
-                $ref: './components/person.yml#definitions/Person'
+                $ref: './components/teams.yml#definitions/Team'
         400:
           $ref: './components/errors.yml#/components/responses/BadRequest'
         401:
@@ -102,22 +102,22 @@ paths:
           $ref: './components/errors.yml#/components/responses/InternalServerError'
     delete:
       tags:
-        - Persons Administration
-      summary: Remove a selected Person
-      description: Remove a single person identified by id and return them.
+        - Teams Administration
+      summary: Remove a selected Team
+      description: Remove a single Team identified by id and return them.
       parameters:
-        - name: person_id
+        - name: team_id
           in: path
           required: true
-          description: Person's id
+          description: Team's id
           type: number
       responses:
         '204':
-          description: Returns the removed Person.
+          description: Returns the removed Team.
           content:
             application/json:
               schema:
-                $ref: './components/person.yml#definitions/RemovedPersons'
+                $ref: './components/teams.yml#definitions/RemovedTeams'
         400:
           $ref: './components/errors.yml#/components/responses/BadRequest'
         401:
@@ -126,27 +126,27 @@ paths:
           $ref: './components/errors.yml#/components/responses/InternalServerError'
     put:
       tags:
-        - Persons Administration
-      summary: Update a selected Person
-      description: Update a single person identified by id and return them.
+        - Teams Administration
+      summary: Update a selected Team
+      description: Update a single Team identified by id and return them.
       parameters:
-        - name: person_id
+        - name: team_id
           in: path
           required: true
-          description: Person's id
+          description: Team's id
           type: number
       requestBody:
         content:
           application/json:
             schema:
-              $ref: './components/person.yml#definitions/Person'
+              $ref: './components/teams.yml#definitions/Team'
       responses:
         '204':
-          description: return the updated person
+          description: return the updated Team
           content:
             application/json:
               schema:
-                $ref: './components/person.yml#definitions/Person'
+                $ref: './components/teams.yml#definitions/Team'
         400:
           $ref: './components/errors.yml#/components/responses/BadRequest'
         401:

@@ -1,4 +1,4 @@
-package com.people_managment_system
+package com.teams_management_system
 
 import RoleBasedAuthorization
 import api.api
@@ -15,7 +15,7 @@ import io.ktor.jackson.*
 import io.ktor.routing.*
 import statuspages.authStatusPage
 import statuspages.defaultStatusPage
-import statuspages.invalidPersonStatusPage
+import statuspages.invalidTeamStatusPage
 import statuspages.unknownErrorStatusPage
 import javax.annotation.processing.Generated
 
@@ -42,7 +42,7 @@ fun Application.main() {
 
     install(StatusPages) {
         authStatusPage()
-        invalidPersonStatusPage()
+        invalidTeamStatusPage()
         defaultStatusPage()
         unknownErrorStatusPage()
     }

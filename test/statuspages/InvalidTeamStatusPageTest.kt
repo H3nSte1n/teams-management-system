@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class InvalidPersonStatusPageTest {
+class InvalidTeamStatusPageTest {
     @Nested
     inner class when_throw_exception {
 
@@ -17,11 +17,11 @@ class InvalidPersonStatusPageTest {
         fun response_status_and_message() {
             withTestApplication {
                 application.install(StatusPages) {
-                    invalidPersonStatusPage()
+                    invalidTeamStatusPage()
                 }
                 application.routing {
                     get("/exception") {
-                        throw InvalidPersonException()
+                        throw InvalidTeamException()
                     }
                 }
 
@@ -32,9 +32,9 @@ class InvalidPersonStatusPageTest {
                         "Should return status code 400"
                     )
                     assertEquals(
-                        InvalidPersonException().message,
+                        InvalidTeamException().message,
                         call.response.content,
-                        "Should return error message from InvalidPersonException"
+                        "Should return error message from InvalidTeamException"
                     )
                 }
             }

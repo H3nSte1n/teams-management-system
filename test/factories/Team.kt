@@ -1,10 +1,10 @@
 package factories
 
-import data.Person
+import data.Team
 import org.joda.time.DateTime
 
-object Person {
+object Team {
     val instance by lazy {
-        Person(0, "foo", "bar", DateTime.now())
+        Team(0, "foo", listOf(1, 2, 3))
     }
 }

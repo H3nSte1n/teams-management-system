@@ -1,25 +1,25 @@
 package controller
 
-import factories.Person
+import factories.Team
 import helper.Controller
 import io.mockk.*
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import schemas.Persons
-import statuspages.InvalidPersonException
+import schemas.Teams
+import statuspages.InvalidTeamException
 import statuspages.ThrowableException
-import validation.PersonValidation
+import validation.TeamValidation
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
 
-class PersonenControllerTest {
-    lateinit var person: data.Person
+class TeamenControllerTest {
+    lateinit var team: data.Team
 
     @BeforeTest
     fun prepare() {
-        person = Person.instance
+        team = Team.instance
         unmockkAll()
     }
 
@@ -29,77 +29,77 @@ class PersonenControllerTest {
     }
 
     @Nested
-    inner class when_run_removePerson {
+    inner class when_run_removeTeam {
 
         @Test
         fun should_call_specific_methods() {
-            mockkObject(PersonValidation)
-            mockkObject(Persons)
+            mockkObject(TeamValidation)
+            mockkObject(Teams)
 
-            every { PersonValidation.validatePersonExist<Int>(any(), any()) } returns true
-            every { Persons.deletePerson(any()) } returns 1
+            every { TeamValidation.validateTeamExist<Int>(any(), any()) } returns true
+            every { Teams.deleteTeam(any()) } returns 1
 
-            PersonController.removePerson(3)
+            TeamsController.removeTeam(3)
 
             verify {
-                PersonValidation.validatePersonExist<Int>(any(), any())
-                Persons.deletePerson(any())
+                TeamValidation.validateTeamExist<Int>(any(), any())
+                Teams.deleteTeam(any())
             }
 
             verifyOrder {
-                PersonValidation.validatePersonExist<Int>(any(), any())
-                Persons.deletePerson(any())
+                TeamValidation.validateTeamExist<Int>(any(), any())
+                Teams.deleteTeam(any())
             }
         }
 
         @Test
         fun should_break_up_if_input_is_invalid() {
-            mockkObject(PersonValidation)
+            mockkObject(TeamValidation)
 
-            every { PersonValidation.validatePersonExist<Int>(any(), any()) } returns false
+            every { TeamValidation.validateTeamExist<Int>(any(), any()) } returns false
 
-            assertThrows(InvalidPersonException::class.java) {
-                PersonController.removePerson(3)
+            assertThrows(InvalidTeamException::class.java) {
+                TeamsController.removeTeam(3)
             }
         }
 
         @Test
-        fun should_return_count_of_removed_Persons_on_valid_request() {
-            mockkObject(PersonValidation)
-            mockkObject(Persons)
+        fun should_return_count_of_removed_Teams_on_valid_request() {
+            mockkObject(TeamValidation)
+            mockkObject(Teams)
 
-            every { PersonValidation.validatePersonExist<Int>(any(), any()) } returns true
-            every { Persons.deletePerson(any()) } returns 1
+            every { TeamValidation.validateTeamExist<Int>(any(), any()) } returns true
+            every { Teams.deleteTeam(any()) } returns 1
 
-            assertEquals(PersonController.removePerson(3), 1)
+            assertEquals(TeamsController.removeTeam(3), 1)
         }
     }
 
     @Nested
-    inner class when_run_addPerson {
+    inner class when_run_addTeam {
 
         @Test
         fun should_call_specific_methods() {
             mockkObject(Controller)
-            mockkObject(PersonValidation)
-            mockkObject(Persons)
+            mockkObject(TeamValidation)
+            mockkObject(Teams)
 
             every { Controller.isInputValid(any()) } returns true
-            every { PersonValidation.validatePersonExist<String>(any(), any()) } returns false
-            every { Persons.createPerson(any()) } returns person
+            every { TeamValidation.validateTeamExist<String>(any(), any()) } returns false
+            every { Teams.createTeam(any()) } returns team
 
-            PersonController.addPerson(person)
+            TeamsController.addTeam(team)
 
             verify {
                 Controller.isInputValid(any())
-                PersonValidation.validatePersonExist<String>(any(), any())
-                Persons.createPerson(any())
+                TeamValidation.validateTeamExist<String>(any(), any())
+                Teams.createTeam(any())
             }
 
             verifyOrder {
                 Controller.isInputValid(any())
-                PersonValidation.validatePersonExist<String>(any(), any())
-                Persons.createPerson(any())
+                TeamValidation.validateTeamExist<String>(any(), any())
+                Teams.createTeam(any())
             }
         }
 
@@ -110,88 +110,88 @@ class PersonenControllerTest {
             every { Controller.isInputValid(any()) } returns false
 
             assertThrows(ThrowableException::class.java) {
-                PersonController.addPerson(person)
+                TeamsController.addTeam(team)
             }
         }
 
         @Test
-        fun should_break_up_if_person_already_exist() {
+        fun should_break_up_if_Team_already_exist() {
             mockkObject(Controller)
-            mockkObject(PersonValidation)
+            mockkObject(TeamValidation)
 
             every { Controller.isInputValid(any()) } returns true
-            every { PersonValidation.validatePersonExist<String>(any(), any()) } returns true
+            every { TeamValidation.validateTeamExist<String>(any(), any()) } returns true
 
-            assertThrows(InvalidPersonException::class.java) {
-                PersonController.addPerson(person)
+            assertThrows(InvalidTeamException::class.java) {
+                TeamsController.addTeam(team)
             }
         }
 
         @Test
-        fun should_return_added_person_on_valid_request() {
+        fun should_return_added_Team_on_valid_request() {
             mockkObject(Controller)
-            mockkObject(PersonValidation)
-            mockkObject(Persons)
+            mockkObject(TeamValidation)
+            mockkObject(Teams)
 
             every { Controller.isInputValid(any()) } returns true
-            every { PersonValidation.validatePersonExist<String>(any(), any()) } returns false
-            every { Persons.createPerson(any()) } returns person
+            every { TeamValidation.validateTeamExist<String>(any(), any()) } returns false
+            every { Teams.createTeam(any()) } returns team
 
-            assertEquals(PersonController.addPerson(person), person)
+            assertEquals(TeamsController.addTeam(team), team)
         }
     }
 
     @Nested
-    inner class when_run_getAllPersons {
+    inner class when_run_getAllTeams {
 
         @Test
         fun should_call_specific_method() {
-            mockkObject(Persons)
+            mockkObject(Teams)
 
-            every { Persons.getPersons() } returns listOf(person)
+            every { Teams.getTeams() } returns listOf(team)
 
-            PersonController.getAllPersons()
+            TeamsController.getAllTeams()
 
             verify {
-                Persons.getPersons()
+                Teams.getTeams()
             }
         }
 
         @Test
-        fun should_return_list_of_stored_Persons_on_valid_request() {
-            mockkObject(Persons)
+        fun should_return_list_of_stored_Teams_on_valid_request() {
+            mockkObject(Teams)
 
-            every { Persons.getPersons() } returns listOf(person)
+            every { Teams.getTeams() } returns listOf(team)
 
-            assertEquals(PersonController.getAllPersons(), listOf(person))
+            assertEquals(TeamsController.getAllTeams(), listOf(team))
         }
     }
 
     @Nested
-    inner class when_run_updatePerson {
+    inner class when_run_updateTeam {
 
         @Test
         fun should_call_specific_method() {
             mockkObject(Controller)
-            mockkObject(PersonValidation)
-            mockkObject(Persons)
+            mockkObject(TeamValidation)
+            mockkObject(Teams)
 
             every { Controller.isInputValid(any()) } returns true
-            every { PersonValidation.validatePersonExist<String>(any(), any()) } returns true
-            every { Persons.updatePerson(any(), any()) } returns person
+            every { TeamValidation.validateTeamExist<String>(any(), any()) } returns true
+            every { Teams.updateTeam(any(), any()) } returns team
 
-            PersonController.updatePerson(1, person)
+            TeamsController.updateTeam(1, team)
 
             verify {
                 Controller.isInputValid(any())
-                PersonValidation.validatePersonExist<String>(any(), any())
-                Persons.updatePerson(any(), any())
+                TeamValidation.validateTeamExist<String>(any(), any())
+                Teams.updateTeam(any(), any())
             }
 
             verifyOrder {
                 Controller.isInputValid(any())
-                PersonValidation.validatePersonExist<String>(any(), any())
-                Persons.updatePerson(any(), any())
+                TeamValidation.validateTeamExist<String>(any(), any())
+                Teams.updateTeam(any(), any())
             }
         }
 
@@ -202,34 +202,34 @@ class PersonenControllerTest {
             every { Controller.isInputValid(any()) } returns false
 
             assertThrows(ThrowableException::class.java) {
-                PersonController.updatePerson(1, person)
+                TeamsController.updateTeam(1, team)
             }
         }
 
         @Test
-        fun should_break_up_if_person_not_exist() {
+        fun should_break_up_if_Team_not_exist() {
             mockkObject(Controller)
-            mockkObject(PersonValidation)
+            mockkObject(TeamValidation)
 
             every { Controller.isInputValid(any()) } returns true
-            every { PersonValidation.validatePersonExist<String>(any(), any()) } returns false
+            every { TeamValidation.validateTeamExist<String>(any(), any()) } returns false
 
-            assertThrows(InvalidPersonException::class.java) {
-                PersonController.updatePerson(1, person)
+            assertThrows(InvalidTeamException::class.java) {
+                TeamsController.updateTeam(1, team)
             }
         }
 
         @Test
-        fun should_return_updated_person_on_valid_request() {
+        fun should_return_updated_Team_on_valid_request() {
             mockkObject(Controller)
-            mockkObject(PersonValidation)
-            mockkObject(Persons)
+            mockkObject(TeamValidation)
+            mockkObject(Teams)
 
             every { Controller.isInputValid(any()) } returns true
-            every { PersonValidation.validatePersonExist<String>(any(), any()) } returns true
-            every { Persons.updatePerson(any(), any()) } returns person
+            every { TeamValidation.validateTeamExist<String>(any(), any()) } returns true
+            every { Teams.updateTeam(any(), any()) } returns team
 
-            assertEquals(PersonController.updatePerson(1, person), person)
+            assertEquals(TeamsController.updateTeam(1, team), team)
         }
     }
 }

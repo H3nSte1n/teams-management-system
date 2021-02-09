@@ -1,11 +1,11 @@
 package helper
 
-import validation.PersonValidation
+import validation.TeamValidation
 
 object Controller {
     fun isInputValid(methods: List<String>): Boolean {
         for (input in methods) {
-            if (!PersonValidation.validateInput(input)) return false
+            if (!TeamValidation.validateInput(input)) return false
         }
 
         return true
