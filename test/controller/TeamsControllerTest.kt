@@ -14,7 +14,7 @@ import validation.TeamValidation
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
 
-class TeamenControllerTest {
+class TeamsControllerTest {
     lateinit var team: data.Team
 
     @BeforeTest

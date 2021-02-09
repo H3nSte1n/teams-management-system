@@ -1,7 +1,6 @@
 package factories
 
 import data.Team
-import org.joda.time.DateTime
 
 object Team {
     val instance by lazy {
