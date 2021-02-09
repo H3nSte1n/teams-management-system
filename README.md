@@ -1,4 +1,4 @@
-# Turnierverwaltung - People Management System
+# Turnierverwaltung - Teams Management System
 
 ![CI][ci]
 ![Code-Style][code-style]
